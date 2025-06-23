@@ -1,183 +1,181 @@
-// Swift for Python Developers - Example 07: Object-Oriented Programming (Classes and Structs)
+// 파이썬 개발자를 위한 Swift - 예제 07: 객체 지향 프로그래밍 (클래스와 구조체)
 
-import Foundation // For sqrt function if needed
+import Foundation // 필요한 경우 sqrt 함수 등에 사용
 
-// Swift has two main ways to create custom data types with properties and methods:
-// - Classes
-// - Structures (structs)
+// Swift에는 프로퍼티와 메서드를 가진 사용자 정의 데이터 타입을 만드는 두 가지 주요 방법이 있습니다:
+// - 클래스 (Classes)
+// - 구조체 (Structures, structs)
 
-// --- Key Differences ---
-// 1. Type:
-//    - Classes are REFERENCE types.
-//    - Structs are VALUE types.
-// 2. Inheritance:
-//    - Classes support inheritance.
-//    - Structs do NOT support inheritance.
-// 3. Mutability:
-//    - For classes (reference types), a `let` constant can have its variable properties changed.
-//      The constant refers to the same instance, but the instance's state can change.
-//    - For structs (value types), if a struct instance is assigned to a `let` constant,
-//      none of its properties can be changed, even if they are declared as `var`.
-//      This is because the constant holds the entire value.
-// 4. Initializers:
-//    - Structs get a free memberwise initializer if they don't define any custom initializers.
-//    - Classes must have all their stored properties initialized (either with a default value or in an initializer).
-//      They only get a default parameterless initializer if all properties have defaults and no custom inits are defined.
-// 5. Deinitializers (`deinit`):
-//    - Classes can have deinitializers to clean up resources.
-//    - Structs cannot have deinitializers.
+// --- 주요 차이점 ---
+// 1. 타입:
+//    - 클래스는 참조(REFERENCE) 타입입니다.
+//    - 구조체는 값(VALUE) 타입입니다.
+// 2. 상속:
+//    - 클래스는 상속을 지원합니다.
+//    - 구조체는 상속을 지원하지 않습니다.
+// 3. 변경 가능성:
+//    - 클래스(참조 타입)의 경우, `let` 상수는 해당 인스턴스의 가변 프로퍼티를 변경할 수 있습니다.
+//      상수는 동일한 인스턴스를 참조하지만, 인스턴스의 상태는 변경될 수 있습니다.
+//    - 구조체(값 타입)의 경우, 구조체 인스턴스가 `let` 상수에 할당되면,
+//      해당 프로퍼티가 `var`로 선언되었더라도 어떤 프로퍼티도 변경할 수 없습니다.
+//      이는 상수가 전체 값을 보유하기 때문입니다.
+// 4. 초기화 구문:
+//    - 구조체는 사용자 정의 초기화 구문을 정의하지 않으면 무료 멤버별 초기화 구문을 얻습니다.
+//    - 클래스는 모든 저장 프로퍼티가 초기화되어야 합니다 (기본값 또는 초기화 구문 내에서).
+//      모든 프로퍼티에 기본값이 있고 사용자 정의 초기화 구문이 정의되지 않은 경우에만 기본 매개변수 없는 초기화 구문을 얻습니다.
+// 5. 소멸자 (`deinit`):
+//    - 클래스는 리소스를 정리하기 위한 소멸자를 가질 수 있습니다.
+//    - 구조체는 소멸자를 가질 수 없습니다.
 
-print("--- Structures (Structs) ---")
-// Good for simple data structures, things that don't need inheritance,
-// and when you want value semantics (copies are independent).
+print("--- 구조체 (Structs) ---") // 문자열 리터럴 번역
+// 간단한 데이터 구조, 상속이 필요 없는 것,
+// 그리고 값 의미론(복사본은 독립적임)을 원할 때 좋습니다.
 
-struct Point { // Value type
+struct Point { // 값 타입
     var x: Double
     var y: Double
 
-    // Method within a struct
+    // 구조체 내의 메서드
     func description() -> String {
-        return "Point at (x: \(x), y: \(y))"
+        return "점 (x: \(x), y: \(y))" // 문자열 리터럴 번역
     }
 
-    // Methods that modify properties of a value type (struct, enum) must be marked `mutating`.
+    // 값 타입(구조체, 열거형)의 프로퍼티를 수정하는 메서드는 `mutating`으로 표시해야 합니다.
     mutating func moveBy(deltaX: Double, deltaY: Double) {
         x += deltaX
         y += deltaY
-        // Alternatively: self = Point(x: self.x + deltaX, y: self.y + deltaY)
+        // 대안: self = Point(x: self.x + deltaX, y: self.y + deltaY)
     }
 
-    // Computed property
+    // 계산 프로퍼티
     var distanceFromOrigin: Double {
-        // `get` is implicit for read-only computed properties
+        // 읽기 전용 계산 프로퍼티의 경우 `get`은 암시적입니다.
         return (x * x + y * y).squareRoot()
     }
 }
 
-// Structs get a memberwise initializer automatically if you don't define custom ones.
+// 구조체는 사용자 정의 초기화 구문을 정의하지 않으면 멤버별 초기화 구문을 자동으로 얻습니다.
 var p1 = Point(x: 3.0, y: 4.0)
-print(p1.description()) // "Point at (x: 3.0, y: 4.0)"
-print("Distance from origin for p1: \(p1.distanceFromOrigin)") // 5.0
+print(p1.description()) // "점 (x: 3.0, y: 4.0)"
+print("p1의 원점으로부터의 거리: \(p1.distanceFromOrigin)") // 5.0 (문자열 리터럴 번역)
 
-// Value type behavior: p2 is a COPY of p1
+// 값 타입 동작: p2는 p1의 복사본입니다.
 var p2 = p1
-print("p2 initially: " + p2.description())
+print("p2 초기 상태: " + p2.description()) // 문자열 리터럴 번역
 
-p1.moveBy(deltaX: 1.0, deltaY: 1.0) // Modifies p1
-print("p1 after move: " + p1.description())      // "Point at (x: 4.0, y: 5.0)"
-print("p2 after p1 moved: " + p2.description()) // "Point at (x: 3.0, y: 4.0)" (p2 is unchanged)
+p1.moveBy(deltaX: 1.0, deltaY: 1.0) // p1 수정
+print("이동 후 p1: " + p1.description())      // "점 (x: 4.0, y: 5.0)" (문자열 리터럴 번역)
+print("p1 이동 후 p2: " + p2.description()) // "점 (x: 3.0, y: 4.0)" (p2는 변경되지 않음) (문자열 리터럴 번역)
 
-// If a struct instance is a constant (`let`), its properties cannot be changed,
-// even if they are variable properties (`var`) or if you call a mutating method.
+// 구조체 인스턴스가 상수(`let`)이면, 해당 프로퍼티가 가변 프로퍼티(`var`)이거나
+// mutating 메서드를 호출하더라도 프로퍼티를 변경할 수 없습니다.
 let fixedPoint = Point(x: 1.0, y: 1.0)
-print("Fixed point: " + fixedPoint.description())
-// fixedPoint.x = 2.0 // Error: Cannot assign to property: 'fixedPoint' is a 'let' constant
-// fixedPoint.moveBy(deltaX: 1.0, deltaY: 1.0) // Error: Cannot use mutating member on immutable value: 'fixedPoint' is a 'let' constant
+print("고정된 점: " + fixedPoint.description()) // 문자열 리터럴 번역
+// fixedPoint.x = 2.0 // 오류: 'fixedPoint'는 'let' 상수이므로 프로퍼티에 할당할 수 없습니다.
+// fixedPoint.moveBy(deltaX: 1.0, deltaY: 1.0) // 오류: 불변 값 'fixedPoint'에 대해 mutating 멤버를 사용할 수 없습니다.
 
 
-print("\n--- Classes ---")
-// Used for more complex objects, when inheritance is needed, or when reference semantics are desired.
-// Python classes are always reference types.
+print("\n--- 클래스 (Classes) ---") // 문자열 리터럴 번역
+// 더 복잡한 객체, 상속이 필요할 때, 또는 참조 의미론이 필요할 때 사용됩니다.
+// 파이썬 클래스는 항상 참조 타입입니다.
 
-class Vehicle { // Reference type
-    var currentSpeed: Double = 0.0 // Stored property with a default value
-    let numberOfWheels: Int // Stored property, must be initialized
+class Vehicle { // 참조 타입
+    var currentSpeed: Double = 0.0 // 기본값을 가진 저장 프로퍼티
+    let numberOfWheels: Int // 저장 프로퍼티, 초기화해야 함
 
-    // Initializer (constructor)
-    // Classes do not get a memberwise initializer automatically.
-    // All stored properties must have a value after initialization.
+    // 초기화 구문 (생성자)
+    // 클래스는 멤버별 초기화 구문을 자동으로 얻지 못합니다.
+    // 모든 저장 프로퍼티는 초기화 후 값을 가져야 합니다.
     init(numberOfWheels: Int) {
-        self.numberOfWheels = numberOfWheels // `self` refers to the instance
-        print("Vehicle with \(numberOfWheels) wheels initialized.")
+        self.numberOfWheels = numberOfWheels // `self`는 인스턴스를 참조합니다.
+        print("\(numberOfWheels)개의 바퀴를 가진 차량 초기화됨.") // 문자열 리터럴 번역
     }
 
-    // Another initializer (overloading)
+    // 또 다른 초기화 구문 (오버로딩)
     init(numberOfWheels: Int, initialSpeed: Double) {
         self.numberOfWheels = numberOfWheels
         self.currentSpeed = initialSpeed
-        print("Vehicle with \(numberOfWheels) wheels and initial speed \(initialSpeed) initialized.")
+        print("\(numberOfWheels)개의 바퀴와 초기 속도 \(initialSpeed)를 가진 차량 초기화됨.") // 문자열 리터럴 번역
     }
 
-    // If all properties have default values and no custom initializers are defined,
-    // a default parameterless initializer `init()` is provided.
-    // Example:
+    // 모든 프로퍼티에 기본값이 있고 사용자 정의 초기화 구문이 정의되지 않은 경우,
+    // 기본 매개변수 없는 초기화 구문 `init()`이 제공됩니다.
+    // 예시:
     // class AnotherVehicle {
-    //     var name = "Default"
+    //     var name = "기본값"
     // }
-    // let av = AnotherVehicle() // Uses default init()
+    // let av = AnotherVehicle() // 기본 init() 사용
 
-    // Computed property
+    // 계산 프로퍼티
     var description: String {
-        return "A vehicle with \(numberOfWheels) wheels traveling at \(currentSpeed) mph."
+        return "\(numberOfWheels)개의 바퀴를 가지고 시속 \(currentSpeed)마일로 이동하는 차량입니다." // 문자열 리터럴 번역
     }
 
-    // Method
+    // 메서드
     func accelerate(by amount: Double) {
         currentSpeed += amount
     }
 
     func makeNoise() {
-        print("Generic vehicle noise")
+        print("일반적인 차량 소음") // 문자열 리터럴 번역
     }
 
-    // Deinitializer (like a destructor, called when instance is deallocated by ARC)
+    // 소멸자 (소멸자와 유사, ARC에 의해 인스턴스가 할당 해제될 때 호출됨)
     deinit {
-        print("Vehicle with \(numberOfWheels) wheels is being deinitialized.")
+        print("\(numberOfWheels)개의 바퀴를 가진 차량이 소멸화 중입니다.") // 문자열 리터럴 번역
     }
 }
 
-// Creating an instance of a class
+// 클래스 인스턴스 생성
 var car = Vehicle(numberOfWheels: 4, initialSpeed: 30.0)
 print(car.description)
 car.accelerate(by: 25.0)
-print("Car after accelerating: " + car.description)
+print("가속 후 차량: " + car.description) // 문자열 리터럴 번역
 
-// Reference type behavior: anotherCarRef points to the SAME instance as car
+// 참조 타입 동작: anotherCarRef는 car와 동일한 인스턴스를 가리킵니다.
 var anotherCarRef = car
-print("AnotherCarRef speed: \(anotherCarRef.currentSpeed)") // 55.0
+print("anotherCarRef 속도: \(anotherCarRef.currentSpeed)") // 55.0 (문자열 리터럴 번역)
 
-car.accelerate(by: 10.0) // Modifies the instance `car` refers to
-print("Car speed after further acceleration: \(car.currentSpeed)")           // 65.0
-print("AnotherCarRef speed after car accelerated: \(anotherCarRef.currentSpeed)") // 65.0 (sees the change)
+car.accelerate(by: 10.0) // `car`가 참조하는 인스턴스 수정
+print("추가 가속 후 차량 속도: \(car.currentSpeed)")           // 65.0 (문자열 리터럴 번역)
+print("차량 가속 후 anotherCarRef 속도: \(anotherCarRef.currentSpeed)") // 65.0 (변경 사항 확인) (문자열 리터럴 번역)
 
-// Identity Operators (=== and !==)
-// Check if two constants or variables refer to the exact same class instance.
+// 항등 연산자 (=== 및 !==)
+// 두 상수 또는 변수가 정확히 동일한 클래스 인스턴스를 참조하는지 확인합니다.
 let car2 = Vehicle(numberOfWheels: 4)
-let car3 = car // car3 refers to the same instance as car
+let car3 = car // car3는 car와 동일한 인스턴스를 참조합니다.
 
 if car === car2 {
-    print("car and car2 refer to the same instance.") // Not printed
+    print("car와 car2는 동일한 인스턴스를 참조합니다.") // 출력되지 않음 (문자열 리터럴 번역)
 } else {
-    print("car and car2 refer to different instances.")
+    print("car와 car2는 다른 인스턴스를 참조합니다.") // 문자열 리터럴 번역
 }
 
 if car === car3 {
-    print("car and car3 refer to the same instance.") // Printed
+    print("car와 car3는 동일한 인스턴스를 참조합니다.") // 출력됨 (문자열 리터럴 번역)
 }
 
-// `let` constant referring to a class instance:
-// You can change the *variable properties* of the instance,
-// but you cannot reassign the constant to refer to a *different instance*.
+// 클래스 인스턴스를 참조하는 `let` 상수:
+// 인스턴스의 *가변 프로퍼티*는 변경할 수 있지만,
+// 상수를 *다른 인스턴스*를 참조하도록 재할당할 수는 없습니다.
 let myTruck = Vehicle(numberOfWheels: 18, initialSpeed: 50.0)
-print("My truck: \(myTruck.description)")
-myTruck.currentSpeed = 55.0 // OK: currentSpeed is a `var` property
-// myTruck.numberOfWheels = 16 // Error: numberOfWheels is a `let` property
-print("My truck after speed change: \(myTruck.description)")
+print("내 트럭: \(myTruck.description)") // 문자열 리터럴 번역
+myTruck.currentSpeed = 55.0 // OK: currentSpeed는 `var` 프로퍼티입니다.
+// myTruck.numberOfWheels = 16 // 오류: numberOfWheels는 `let` 프로퍼티입니다.
+print("속도 변경 후 내 트럭: \(myTruck.description)") // 문자열 리터럴 번역
 
-// myTruck = Vehicle(numberOfWheels: 6) // Error: Cannot assign to value: 'myTruck' is a 'let' constant
+// myTruck = Vehicle(numberOfWheels: 6) // 오류: 'myTruck'은 'let' 상수이므로 값을 할당할 수 없습니다.
 
 
-// --- Choosing Between Classes and Structs ---
-// - Use STRUCTS by default.
-// - Use classes when you need Objective-C interoperability.
-// - Use classes when you need to control the identity of the data you're modeling.
-// - Use structs when you don't need to control identity and your data is simple,
-//   or you want value-type semantics (copies are independent).
-// - Data structures like Point, Size, Rectangle are good candidates for structs.
-// - More complex entities that have an identity and lifecycle (e.g., Document, Person, Window)
-//   are often better as classes.
+// --- 클래스와 구조체 중 선택하기 ---
+// - 기본적으로 구조체(STRUCTS)를 사용합니다.
+// - Objective-C 상호 운용성이 필요할 때 클래스를 사용합니다.
+// - 모델링하는 데이터의 ID를 제어해야 할 때 클래스를 사용합니다.
+// - ID를 제어할 필요가 없고 데이터가 단순하거나 값 타입 의미론(복사본은 독립적임)을 원할 때 구조체를 사용합니다.
+// - Point, Size, Rectangle과 같은 데이터 구조는 구조체에 적합합니다.
+// - ID와 라이프사이클을 가진 더 복잡한 엔티티(예: Document, Person, Window)는 종종 클래스가 더 낫습니다.
 
-// Example: A struct for a simple data bundle
+// 예시: 간단한 데이터 묶음을 위한 구조체
 struct Resolution {
     var width = 0
     var height = 0
@@ -188,113 +186,113 @@ struct Resolution {
 }
 
 let hd = Resolution(width: 1920, height: 1080)
-var cinema = hd // cinema is a COPY of hd
+var cinema = hd // cinema는 hd의 복사본입니다.
 cinema.width = 2048
-print("HD width: \(hd.width), Cinema width: \(cinema.width)") // 1920, 2048
+print("HD 너비: \(hd.width), 시네마 너비: \(cinema.width)") // 1920, 2048 (문자열 리터럴 번역)
 
 
-// --- Properties ---
-// Stored Properties (store constant or variable values as part of an instance)
-//   - `let` for constant stored properties
-//   - `var` for variable stored properties
-// Computed Properties (calculate a value rather than store it)
-//   - Provide a getter and an optional setter.
-//   - Covered briefly in Point (distanceFromOrigin) and Vehicle (description)
+// --- 프로퍼티 ---
+// 저장 프로퍼티 (인스턴스의 일부로 상수 또는 변수 값을 저장)
+//   - 상수 저장 프로퍼티의 경우 `let`
+//   - 변수 저장 프로퍼티의 경우 `var`
+// 계산 프로퍼티 (값을 저장하는 대신 계산)
+//   - getter와 선택적 setter를 제공합니다.
+//   - Point(distanceFromOrigin) 및 Vehicle(description)에서 간략하게 다루었습니다.
 
-// Lazy Stored Properties
-// A property whose initial value is not calculated until the first time it is used.
-// Must be `var`, cannot be `let`. Useful for expensive initializations.
+// 지연 저장 프로퍼티
+// 초기 값이 처음 사용될 때까지 계산되지 않는 프로퍼티입니다.
+// `var`여야 하며, `let`일 수 없습니다. 비용이 많이 드는 초기화에 유용합니다.
 class DataImporter {
-    var filename = "data.txt"
+    var filename = "data.txt" // 문자열 리터럴 번역 (파일명 예시)
     init() {
-        // Simulate expensive setup
-        print("DataImporter for \(filename) initialized (potentially expensive).")
-        Thread.sleep(forTimeInterval: 0.1) // Simulate work
+        // 비용이 많이 드는 설정 시뮬레이션
+        print("\(filename)용 DataImporter 초기화됨 (잠재적으로 비용이 많이 듦).") // 문자열 리터럴 번역
+        Thread.sleep(forTimeInterval: 0.1) // 작업 시뮬레이션
     }
     func importData() -> String {
-        return "Data from \(filename)"
+        return "\(filename)의 데이터" // 문자열 리터럴 번역
     }
 }
 
 class DataManager {
-    lazy var importer = DataImporter() // Not initialized until first accessed
+    lazy var importer = DataImporter() // 처음 접근할 때까지 초기화되지 않음
     var data: [String] = []
 
     init() {
-        print("DataManager initialized.")
+        print("DataManager 초기화됨.") // 문자열 리터럴 번역
     }
 
     func loadData() {
-        print("DataManager is about to load data...")
-        // The `importer` is created here, the first time it's accessed
+        print("DataManager가 데이터를 로드하려고 합니다...") // 문자열 리터럴 번역
+        // `importer`는 여기서 처음 접근할 때 생성됩니다.
         data.append(importer.importData())
-        print("Data loaded.")
+        print("데이터 로드됨.") // 문자열 리터럴 번역
     }
 }
-print("\n--- Lazy Stored Properties ---")
-let manager = DataManager() // importer is NOT yet created
-print("DataManager instance created.")
-// ... some time later ...
-manager.loadData() // importer is created now
-// manager.importer.filename = "other_data.txt" // Accessing importer also initializes it
-// manager.loadData() // importer is already created
+print("\n--- 지연 저장 프로퍼티 ---") // 문자열 리터럴 번역
+let manager = DataManager() // importer는 아직 생성되지 않았습니다.
+print("DataManager 인스턴스 생성됨.") // 문자열 리터럴 번역
+// ... 잠시 후 ...
+manager.loadData() // importer가 이제 생성됩니다.
+// manager.importer.filename = "other_data.txt" // importer에 접근하는 것도 초기화합니다.
+// manager.loadData() // importer는 이미 생성되었습니다.
 
-// Property Observers (`willSet` and `didSet`)
-// Observe and respond to changes in a property's value.
-// Not called during initialization.
+// 프로퍼티 관찰자 (`willSet` 및 `didSet`)
+// 프로퍼티 값의 변경을 관찰하고 응답합니다.
+// 초기화 중에는 호출되지 않습니다.
 class StepCounter {
     var totalSteps: Int = 0 {
-        willSet(newTotalSteps) { // Called just BEFORE the value is stored
-            print("About to set totalSteps to \(newTotalSteps) from \(totalSteps)")
+        willSet(newTotalSteps) { // 값이 저장되기 직전에 호출됨
+            print("\(totalSteps)에서 totalSteps를 \(newTotalSteps)(으)로 설정하려고 합니다.") // 문자열 리터럴 번역
         }
-        didSet(oldTotalSteps) { // Called immediately AFTER the new value is stored
-                                // `oldValue` is the default name for the old parameter if not specified
+        didSet(oldTotalSteps) { // 새 값이 저장된 직후에 호출됨
+                                // 지정하지 않은 경우 이전 매개변수의 기본 이름은 `oldValue`입니다.
             if totalSteps > oldTotalSteps {
-                print("Added \(totalSteps - oldTotalSteps) steps. Current total: \(totalSteps)")
+                print("\(totalSteps - oldTotalSteps) 걸음 추가됨. 현재 총계: \(totalSteps)") // 문자열 리터럴 번역
             } else {
-                print("totalSteps changed from \(oldTotalSteps) to \(totalSteps).")
+                print("totalSteps가 \(oldTotalSteps)에서 \(totalSteps)(으)로 변경됨.") // 문자열 리터럴 번역
             }
         }
     }
 }
-print("\n--- Property Observers ---")
+print("\n--- 프로퍼티 관찰자 ---") // 문자열 리터럴 번역
 let stepCounter = StepCounter()
 stepCounter.totalSteps = 200
-// About to set totalSteps to 200 from 0
-// Added 200 steps. Current total: 200
+// 0에서 totalSteps를 200(으)로 설정하려고 합니다.
+// 200 걸음 추가됨. 현재 총계: 200
 stepCounter.totalSteps = 360
-// About to set totalSteps to 360 from 200
-// Added 160 steps. Current total: 360
+// 200에서 totalSteps를 360(으)로 설정하려고 합니다.
+// 160 걸음 추가됨. 현재 총계: 360
 stepCounter.totalSteps = 300
-// About to set totalSteps to 300 from 360
-// totalSteps changed from 360 to 300.
+// 360에서 totalSteps를 300(으)로 설정하려고 합니다.
+// totalSteps가 360에서 300(으)로 변경됨.
 
 
-// Type Properties (static properties)
-// Properties that belong to the type itself, not to any one instance.
-// Use `static` keyword. For computed type properties in classes, you can use `class` to allow overriding.
+// 타입 프로퍼티 (정적 프로퍼티)
+// 특정 인스턴스가 아닌 타입 자체에 속하는 프로퍼티입니다.
+// `static` 키워드를 사용합니다. 클래스의 계산 타입 프로퍼티의 경우 `class`를 사용하여 재정의를 허용할 수 있습니다.
 struct SomeStructure {
-    static var storedTypeProperty = "Some value."
+    static var storedTypeProperty = "어떤 값." // 문자열 리터럴 번역
     static var computedTypeProperty: Int {
         return 1
     }
 }
 class SomeClass {
-    static var storedTypeProperty = "Another value."
+    static var storedTypeProperty = "다른 값." // 문자열 리터럴 번역
     static var computedTypeProperty: Int {
         return 27
     }
-    class var overrideableComputedTypeProperty: Int { // `class` allows subclasses to override
+    class var overrideableComputedTypeProperty: Int { // `class`는 하위 클래스가 재정의하도록 허용합니다.
         return 42
     }
 }
-print("\n--- Type Properties ---")
-print(SomeStructure.storedTypeProperty) // "Some value."
-SomeStructure.storedTypeProperty = "A new value."
-print(SomeStructure.storedTypeProperty) // "A new value."
+print("\n--- 타입 프로퍼티 ---") // 문자열 리터럴 번역
+print(SomeStructure.storedTypeProperty) // "어떤 값."
+SomeStructure.storedTypeProperty = "새로운 값." // 문자열 리터럴 번역
+print(SomeStructure.storedTypeProperty) // "새로운 값."
 print(SomeClass.overrideableComputedTypeProperty) // 42
 
-// Methods (Instance Methods and Type Methods) are covered in more detail in a separate example,
-// but `description()` and `accelerate()` above are instance methods.
-// Type methods (static methods) are also called with `static` or `class` keyword.
+// 메서드(인스턴스 메서드 및 타입 메서드)는 별도의 예제에서 자세히 다루지만,
+// 위의 `description()` 및 `accelerate()`는 인스턴스 메서드입니다.
+// 타입 메서드(정적 메서드)도 `static` 또는 `class` 키워드로 호출됩니다.
 ```

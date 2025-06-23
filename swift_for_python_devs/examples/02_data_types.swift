@@ -1,219 +1,220 @@
-// Swift for Python Developers - Example 02: Data Types
+// 파이썬 개발자를 위한 Swift - 예제 02: 데이터 타입
 
-// --- Basic Data Types ---
+// --- 기본 데이터 타입 ---
 
-// Integer (Int) - similar to Python's int
-// Size depends on the platform (32-bit or 64-bit)
+// 정수 (Int) - 파이썬의 int와 유사
+// 크기는 플랫폼에 따라 다릅니다 (32비트 또는 64비트)
 let age: Int = 30
-let score = 95 // Inferred as Int
-print("Age: \(age), Score: \(score)")
+let score = 95 // Int로 추론됨
+print("나이: \(age), 점수: \(score)") // 문자열 리터럴 번역
 
-// Floating-Point Numbers
-// Double: 64-bit floating-point number (default for floating-point literals) - like Python's float
+// 부동 소수점 숫자
+// Double: 64비트 부동 소수점 숫자 (부동 소수점 리터럴의 기본값) - 파이썬의 float와 유사
 let pi: Double = 3.1415926535
-let gravity = 9.80665 // Inferred as Double
-print("Pi: \(pi), Gravity: \(gravity)")
+let gravity = 9.80665 // Double로 추론됨
+print("Pi: \(pi), 중력: \(gravity)") // 문자열 리터럴 번역
 
-// Float: 32-bit floating-point number
+// Float: 32비트 부동 소수점 숫자
 let price: Float = 19.99
-print("Price: \(price)")
+print("가격: \(price)") // 문자열 리터럴 번역
 
-// Boolean (Bool) - similar to Python's bool
-// Can only be `true` or `false`
+// 불리언 (Bool) - 파이썬의 bool과 유사
+// `true` 또는 `false`만 가능
 let isActive: Bool = true
 let hasPermission = false
-print("Is active: \(isActive), Has permission: \(hasPermission)")
+print("활성 상태: \(isActive), 권한 있음: \(hasPermission)") // 문자열 리터럴 번역
 
-// String - similar to Python's str
-// An ordered collection of characters
-let greeting: String = "Hello, Swift Developer!"
-var message = "Welcome"
-message += " to the world of Swift." // String concatenation
+// 문자열 (String) - 파이썬의 str과 유사
+// 순서 있는 문자 컬렉션
+let greeting: String = "안녕하세요, Swift 개발자님!" // 문자열 리터럴 번역
+var message = "환영합니다" // 문자열 리터럴 번역
+message += " Swift의 세계로." // 문자열 연결 (문자열 리터럴 번역)
 print(greeting)
 print(message)
 
-// String Interpolation (like Python's f-strings)
-let name = "Alice"
-let personalizedGreeting = "Hello, \(name)!"
+// 문자열 보간법 (파이썬의 f-string과 유사)
+let name = "앨리스" // 문자열 리터럴 번역 (이름 예시)
+let personalizedGreeting = "안녕하세요, \(name)님!" // 문자열 리터럴 번역
 print(personalizedGreeting)
 
 let a = 5
 let b = 3
 print("\(a) + \(b) = \(a + b)")
 
-// Multi-line Strings (like Python's triple-quoted strings)
+// 여러 줄 문자열 (파이썬의 삼중 따옴표 문자열과 유사)
 let quotation = """
-The White Rabbit put on his spectacles.  "Where shall I begin,
-please your Majesty?" he asked.
+흰 토끼가 안경을 썼다. "폐하, 어디서부터 시작할까요?"
+그가 물었다.
 
-"Begin at the beginning," the King said gravely, "and go on
-till you come to the end; then stop."
-"""
+왕은 엄숙하게 말했다. "처음부터 시작해서, 끝에 다다를 때까지 계속하고,
+그런 다음 멈추어라."
+""" // 문자열 리터럴 번역 (내용 유지 또는 적절히 의역)
 print(quotation)
 
-// Character - represents a single character
-// Python doesn't have a separate character type; single characters are strings of length 1.
+// 문자 (Character) - 단일 문자를 나타냅니다
+// 파이썬에는 별도의 문자 타입이 없습니다. 단일 문자는 길이 1의 문자열입니다.
 let initial: Character = "J"
 let heartSymbol: Character = "❤️"
-print("Initial: \(initial), Symbol: \(heartSymbol)")
+print("초성: \(initial), 심볼: \(heartSymbol)") // 문자열 리터럴 번역
 
 
-// --- Collection Types ---
+// --- 컬렉션 타입 ---
 
-// Array - ordered collection of values of the SAME type. Similar to Python lists, but type-homogeneous.
-// Python lists can store mixed types. Swift arrays require elements to be of the same type.
+// 배열 (Array) - 동일한 타입의 값들의 순서 있는 컬렉션. 파이썬 리스트와 유사하지만 타입이 균일해야 합니다.
+// 파이썬 리스트는 혼합 타입을 저장할 수 있습니다. Swift 배열은 요소가 동일한 타입이어야 합니다.
 var numbers: [Int] = [1, 2, 3, 4, 5]
-var fruits = ["Apple", "Banana", "Orange"] // Inferred as [String]
+var fruits = ["사과", "바나나", "오렌지"] // [String]으로 추론됨 (문자열 리터럴 번역)
 
-print("First number: \(numbers[0])")
-print("Second fruit: \(fruits[1])")
+print("첫 번째 숫자: \(numbers[0])") // 문자열 리터럴 번역
+print("두 번째 과일: \(fruits[1])") // 문자열 리터럴 번역
 
-numbers.append(6) // Add element
-print("Numbers after append: \(numbers)")
-fruits.insert("Mango", at: 1) // Insert element
-print("Fruits after insert: \(fruits)")
+numbers.append(6) // 요소 추가
+print("append 후 숫자들: \(numbers)") // 문자열 리터럴 번역
+fruits.insert("망고", at: 1) // 요소 삽입 (문자열 리터럴 번역)
+print("insert 후 과일들: \(fruits)") // 문자열 리터럴 번역
 
-// fruits.append(100) // Error: Cannot convert value of type 'Int' to expected argument type 'String'
+// fruits.append(100) // 오류: 'Int' 타입의 값을 예상되는 인자 타입 'String'으로 변환할 수 없습니다.
 
-// Empty Array
+// 빈 배열
 var emptyIntArray: [Int] = []
 var emptyStringArray = [String]()
-print("Empty int array count: \(emptyIntArray.count)")
+print("빈 정수 배열 개수: \(emptyIntArray.count)") // 문자열 리터럴 번역
 
-// Array with default values
+// 기본값을 가진 배열
 var threeDoubles = Array(repeating: 0.0, count: 3) // [0.0, 0.0, 0.0]
-print("Three doubles: \(threeDoubles)")
+print("세 개의 Double: \(threeDoubles)") // 문자열 리터럴 번역
 
 
-// Dictionary - unordered collection of key-value pairs. Similar to Python dicts.
-// Keys must be of the same hashable type, values must be of the same type.
-var person: [String: String] = ["name": "John Doe", "city": "New York"]
-var scores: [String: Int] = ["Math": 90, "Science": 85] // Inferred as [String: Int]
+// 딕셔너리 (Dictionary) - 순서 없는 키-값 쌍의 컬렉션. 파이썬 dict와 유사합니다.
+// 키는 동일한 해시 가능한 타입이어야 하며, 값은 동일한 타입이어야 합니다.
+var person: [String: String] = ["name": "홍길동", "city": "서울"] // 문자열 리터럴 번역
+var scores: [String: Int] = ["수학": 90, "과학": 85] // [String: Int]로 추론됨 (문자열 리터럴 번역)
 
-print("Person's name: \(person["name"] ?? "N/A")") // Accessing returns an optional
-print("Math score: \(scores["Math"] ?? 0)")
+print("사람 이름: \(person["name"] ?? "해당 없음")") // 접근 시 옵셔널 반환 (문자열 리터럴 번역)
+print("수학 점수: \(scores["수학"] ?? 0)") // 문자열 리터럴 번역
 
-person["occupation"] = "Developer" // Add new key-value pair
-scores["Math"] = 92 // Update existing value
-print("Person after update: \(person)")
+person["occupation"] = "개발자" // 새 키-값 쌍 추가 (문자열 리터럴 번역)
+scores["수학"] = 92 // 기존 값 업데이트
+print("업데이트 후 사람 정보: \(person)") // 문자열 리터럴 번역
 
-// To use mixed value types, you can use `Any` but it's less type-safe.
-var mixedInfo: [String: Any] = ["name": "Jane", "age": 28, "isStudent": false]
-print("Mixed info age: \(mixedInfo["age"] as? Int ?? 0)") // Requires type casting for 'Any'
+// 혼합 값 타입을 사용하려면 `Any`를 사용할 수 있지만 타입 안전성이 떨어집니다.
+var mixedInfo: [String: Any] = ["name": "제인", "age": 28, "isStudent": false] // 문자열 리터럴 번역
+print("혼합 정보 나이: \(mixedInfo["age"] as? Int ?? 0)") // 'Any'에 대한 타입 캐스팅 필요 (문자열 리터럴 번역)
 
-// Empty Dictionary
+// 빈 딕셔너리
 var emptyDict: [String: Int] = [:]
 var anotherEmptyDict = [String: Double]()
-print("Empty dict count: \(emptyDict.count)")
+print("빈 딕셔너리 개수: \(emptyDict.count)") // 문자열 리터럴 번역
 
 
-// Set - unordered collection of unique values of the SAME type. Similar to Python sets.
-var uniqueNumbers: Set<Int> = [1, 2, 3, 2, 1, 4] // {1, 2, 3, 4} (order may vary)
+// 세트 (Set) - 동일한 타입의 고유한 값들의 순서 없는 컬렉션. 파이썬 set과 유사합니다.
+var uniqueNumbers: Set<Int> = [1, 2, 3, 2, 1, 4] // {1, 2, 3, 4} (순서는 다를 수 있음)
 var vowels: Set<Character> = ["a", "e", "i", "o", "u"]
-print("Unique numbers: \(uniqueNumbers.sorted())") // Print sorted for consistent output
+print("고유한 숫자들: \(uniqueNumbers.sorted())") // 일관된 출력을 위해 정렬하여 출력 (문자열 리터럴 번역)
 
 uniqueNumbers.insert(5)
-print("Unique numbers after insert 5: \(uniqueNumbers.sorted())")
+print("5 삽입 후 고유한 숫자들: \(uniqueNumbers.sorted())") // 문자열 리터럴 번역
 if uniqueNumbers.contains(3) {
-    print("Set contains 3")
+    print("세트에 3이 포함되어 있습니다.") // 문자열 리터럴 번역
 }
 
-// Set operations
+// 세트 연산
 let oddDigits: Set = [1, 3, 5, 7, 9]
 let evenDigits: Set = [0, 2, 4, 6, 8]
 let singleDigitPrimeNumbers: Set = [2, 3, 5, 7]
 
-print("Union: \(oddDigits.union(evenDigits).sorted())")
-print("Intersection: \(oddDigits.intersection(singleDigitPrimeNumbers).sorted())")
-print("Symmetric Difference: \(oddDigits.symmetricDifference(singleDigitPrimeNumbers).sorted())")
-print("Subtracting: \(oddDigits.subtracting(singleDigitPrimeNumbers).sorted())")
+print("합집합: \(oddDigits.union(evenDigits).sorted())") // 문자열 리터럴 번역
+print("교집합: \(oddDigits.intersection(singleDigitPrimeNumbers).sorted())") // 문자열 리터럴 번역
+print("대칭 차집합: \(oddDigits.symmetricDifference(singleDigitPrimeNumbers).sorted())") // 문자열 리터럴 번역
+print("차집합: \(oddDigits.subtracting(singleDigitPrimeNumbers).sorted())") // 문자열 리터럴 번역
 
 
-// --- Tuples ---
-// A fixed-size, ordered collection of values that can be of different types.
-// Python tuples are similar.
-let httpStatus = (404, "Not Found")
-print("Status code: \(httpStatus.0), Message: \(httpStatus.1)")
+// --- 튜플 ---
+// 고정된 크기의, 다른 타입의 값들을 가질 수 있는 순서 있는 컬렉션입니다.
+// 파이썬 튜플과 유사합니다.
+let httpStatus = (404, "찾을 수 없음") // 문자열 리터럴 번역
+print("상태 코드: \(httpStatus.0), 메시지: \(httpStatus.1)") // 문자열 리터럴 번역
 
-// Naming tuple elements
+// 튜플 요소 이름 지정
 let namedPoint = (x: 10, y: 20, z: 5)
-print("Point coordinates: x=\(namedPoint.x), y=\(namedPoint.y), z=\(namedPoint.z)")
+print("점 좌표: x=\(namedPoint.x), y=\(namedPoint.y), z=\(namedPoint.z)") // 문자열 리터럴 번역
 
-// Decomposing a tuple
+// 튜플 분해
 let (statusCode, statusMessage) = httpStatus
-print("Decomposed - Code: \(statusCode), Message: \(statusMessage)")
+print("분해됨 - 코드: \(statusCode), 메시지: \(statusMessage)") // 문자열 리터럴 번역
 
-// You can ignore parts of a tuple with an underscore (_)
+// 밑줄(_)로 튜플의 일부를 무시할 수 있습니다.
 let (justCode, _) = httpStatus
-print("Just the code: \(justCode)")
+print("코드만: \(justCode)") // 문자열 리터럴 번역
 
-// Tuples can be useful as return types for functions returning multiple values.
+// 튜플은 여러 값을 반환하는 함수의 반환 타입으로 유용할 수 있습니다.
 func getUser() -> (name: String, age: Int, isActive: Bool) {
-    return ("Alice", 30, true)
+    return ("앨리스", 30, true) // 문자열 리터럴 번역 (이름 예시)
 }
 let user = getUser()
-print("User \(user.name) is \(user.age) years old.")
+print("\(user.name) 사용자는 \(user.age)살입니다.") // 문자열 리터럴 번역
 
 
-// --- Optionals ---
-// Used to handle the absence of a value. An optional can either contain a value or be `nil`.
-// Python uses `None` for this, but Swift's optionals are more type-safe.
+// --- 옵셔널 ---
+// 값의 부재를 처리하는 데 사용됩니다. 옵셔널은 값을 가지거나 `nil`일 수 있습니다.
+// 파이썬은 이를 위해 `None`을 사용하지만, Swift의 옵셔널은 타입 안전성이 더 높습니다.
 
-var optionalString: String? = "Hello"
-print("OptionalString: \(optionalString ?? "is nil")") // Nil-coalescing operator
+var optionalString: String? = "안녕하세요" // 문자열 리터럴 번역
+print("OptionalString: \(optionalString ?? "nil입니다")") // Nil-병합 연산자 (문자열 리터럴 번역)
 
 optionalString = nil
-print("OptionalString after nil: \(optionalString ?? "is nil")")
+print("nil 할당 후 OptionalString: \(optionalString ?? "nil입니다")") // 문자열 리터럴 번역
 
-// If a non-optional variable is declared, it MUST have a value.
-// var nonOptionalString: String // Error: Variables must be initialized before being used, unless they are optionals.
-var nonOptionalString: String = "I must have a value"
+// 옵셔널이 아닌 변수가 선언되면 반드시 값을 가져야 합니다.
+// var nonOptionalString: String // 오류: 변수는 옵셔널이 아닌 한 사용 전에 초기화해야 합니다.
+var nonOptionalString: String = "반드시 값을 가져야 합니다" // 문자열 리터럴 번역
 
-// Forced Unwrapping (use with extreme caution - crashes if nil)
-var anotherOptional: String? = "Value exists"
-// print(anotherOptional!) // "Value exists"
+// 강제 언래핑 (매우 주의해서 사용 - nil이면 충돌 발생)
+var anotherOptional: String? = "값이 존재합니다" // 문자열 리터럴 번역
+// print(anotherOptional!) // "값이 존재합니다"
 // anotherOptional = nil
-// print(anotherOptional!) // This would CRASH: Fatal error: Unexpectedly found nil while unwrapping an Optional value
+// print(anotherOptional!) // 여기서 충돌 발생: Fatal error: Unexpectedly found nil while unwrapping an Optional value
 
-// Optional Binding (safer way to unwrap)
-var maybeName: String? = "Carol"
-// maybeName = nil // Uncomment to see the else block execute
+// 옵셔널 바인딩 (더 안전한 언래핑 방법)
+var maybeName: String? = "캐롤" // 문자열 리터럴 번역 (이름 예시)
+// maybeName = nil // else 블록 실행을 보려면 주석 해제
 
 if let actualName = maybeName {
-    print("The name is \(actualName).") // Executes only if maybeName has a value
+    print("이름은 \(actualName)입니다.") // maybeName에 값이 있을 때만 실행 (문자열 리터럴 번역)
 } else {
-    print("The name is nil.")
+    print("이름이 nil입니다.") // 문자열 리터럴 번역
 }
 
-// Multiple optional bindings and boolean conditions in one if statement
+// 하나의 if 문에 여러 옵셔널 바인딩 및 불리언 조건
 var maybeAge: Int? = 30
-var maybeCity: String? = "London"
+var maybeCity: String? = "런던" // 문자열 리터럴 번역 (도시 예시)
 
 if let name = maybeName, let age = maybeAge, age > 18, let city = maybeCity {
-    print("\(name) is \(age) and lives in \(city).")
+    print("\(name)은(는) \(age)살이고 \(city)에 삽니다.") // 문자열 리터럴 번역
 } else {
-    print("Could not get all required information or age is not > 18.")
+    print("필요한 모든 정보를 얻을 수 없거나 나이가 18세 초과가 아닙니다.") // 문자열 리터럴 번역
 }
 
-// Implicitly Unwrapped Optionals (rarely needed, primarily for Objective-C interop)
-// Behaves like an optional but can be accessed without `!` (will crash if nil at access time).
-let assumedString: String! = "An implicitly unwrapped optional string."
-let implicitValue: String = assumedString // No `!` needed, but assumedString MUST have a value here.
+// 암시적 언래핑 옵셔널 (거의 필요하지 않음, 주로 Objective-C 상호 운용성을 위해 사용)
+// 옵셔널처럼 동작하지만 `!` 없이 접근할 수 있습니다 (접근 시 nil이면 충돌 발생).
+let assumedString: String! = "암시적으로 언래핑된 옵셔널 문자열입니다." // 문자열 리터럴 번역
+let implicitValue: String = assumedString // `!` 필요 없음, 하지만 assumedString은 여기서 반드시 값을 가져야 합니다.
 print(implicitValue)
 
 // let badAssumedString: String! = nil
-// let badValue = badAssumedString // CRASHES here if badAssumedString is nil.
+// let badValue = badAssumedString // badAssumedString이 nil이면 여기서 충돌 발생.
 
-// Type Aliases (similar to typedef in C, or just assigning a type to a variable in Python)
-// Define an alternative name for an existing type.
+// 타입 별칭 (C의 typedef 또는 파이썬에서 변수에 타입을 할당하는 것과 유사)
+// 기존 타입에 대한 대체 이름을 정의합니다.
 typealias AudioSample = UInt16
-var maxAmplitudeFound = AudioSample.min // Use the type alias
-print("Max amplitude: \(maxAmplitudeFound)")
+var maxAmplitudeFound = AudioSample.min // 타입 별칭 사용
+print("최대 진폭: \(maxAmplitudeFound)") // 문자열 리터럴 번역
 
 typealias Point = (Int, Int)
 var screenOrigin: Point = (0,0)
-print("Screen origin: \(screenOrigin)")
+print("화면 원점: \(screenOrigin)") // 문자열 리터럴 번역
 
 typealias StringDictionary = [String: String]
-var userPreferences: StringDictionary = ["theme": "dark", "language": "en"]
-print("User theme: \(userPreferences["theme"] ?? "default")")
+var userPreferences: StringDictionary = ["theme": "dark", "language": "ko"] // 문자열 리터럴 번역
+print("사용자 테마: \(userPreferences["theme"] ?? "default")") // 문자열 리터럴 번역
+```

@@ -1,52 +1,52 @@
-// Exercise 02: Collections and Optionals
+// 연습문제 02: 컬렉션 및 옵셔널
 
-// 1. Arrays:
-//    a. Create an array `favoriteFruits` of type `String` and initialize it with three of your favorite fruits.
-//    b. Print the second fruit in the array.
-//    c. Add another fruit to the end of the array.
-//    d. Insert a fruit at the beginning of the array.
-//    e. Print the total number of fruits in the array.
-//    f. Remove the fruit at index 2.
-//    g. Print the updated array.
-
-
-// 2. Dictionaries:
-//    a. Create a dictionary `capitals` where keys are `String` (country names) and values are `String` (capital cities).
-//       Initialize it with at least three country-capital pairs.
-//    b. Print the capital of one of the countries using its key. Handle the case where the key might not exist using optional binding or the nil-coalescing operator.
-//    c. Add a new country and its capital to the dictionary.
-//    d. Update the capital of one of the existing countries.
-//    e. Remove a country from the dictionary.
-//    f. Iterate through the dictionary and print each country and its capital in the format: "The capital of [Country] is [Capital]."
+// 1. 배열:
+//    a. `String` 타입의 배열 `favoriteFruits`를 만들고 좋아하는 과일 세 가지로 초기화하세요.
+//    b. 배열의 두 번째 과일을 출력하세요.
+//    c. 배열 끝에 다른 과일을 추가하세요.
+//    d. 배열 시작 부분에 과일을 삽입하세요.
+//    e. 배열에 있는 총 과일 수를 출력하세요.
+//    f. 인덱스 2에 있는 과일을 제거하세요.
+//    g. 업데이트된 배열을 출력하세요.
 
 
-// 3. Sets:
-//    a. Create two sets of integers, `setA` and `setB`, with some overlapping and some unique numbers.
+// 2. 딕셔너리:
+//    a. 키가 `String`(국가 이름)이고 값이 `String`(수도 이름)인 딕셔너리 `capitals`를 만드세요.
+//       최소 세 개의 국가-수도 쌍으로 초기화하세요.
+//    b. 키를 사용하여 국가 중 하나의 수도를 출력하세요. 옵셔널 바인딩 또는 nil-병합 연산자를 사용하여 키가 존재하지 않을 수 있는 경우를 처리하세요.
+//    c. 딕셔너리에 새 국가와 수도를 추가하세요.
+//    d. 기존 국가 중 하나의 수도를 업데이트하세요.
+//    e. 딕셔너리에서 국가를 제거하세요.
+//    f. 딕셔너리를 반복하면서 각 국가와 수도를 "[국가]의 수도는 [수도]입니다." 형식으로 출력하세요.
+
+
+// 3. 세트:
+//    a. 일부 중복되고 일부 고유한 숫자를 가진 두 개의 정수 세트 `setA`와 `setB`를 만드세요.
 //       `setA` = {1, 2, 3, 4, 5}
 //       `setB` = {4, 5, 6, 7, 8}
-//    b. Create a new set `unionSet` containing all elements from both `setA` and `setB`. Print it (sorted for consistent output).
-//    c. Create a new set `intersectionSet` containing only elements common to both `setA` and `setB`. Print it (sorted).
-//    d. Create a new set `differenceSet` containing elements in `setA` but not in `setB`. Print it (sorted).
-//    e. Check if `setA` is a superset of `{1, 2}`. Print the result.
+//    b. `setA`와 `setB` 모두의 모든 요소를 포함하는 새 세트 `unionSet`을 만드세요. (일관된 출력을 위해 정렬하여) 출력하세요.
+//    c. `setA`와 `setB` 모두에 공통적인 요소만 포함하는 새 세트 `intersectionSet`을 만드세요. (정렬하여) 출력하세요.
+//    d. `setA`에는 있지만 `setB`에는 없는 요소를 포함하는 새 세트 `differenceSet`을 만드세요. (정렬하여) 출력하세요.
+//    e. `setA`가 `{1, 2}`의 상위 집합인지 확인하세요. 결과를 출력하세요.
 
 
-// 4. Optionals:
-//    a. Declare an optional integer `optionalAge` and do not initialize it.
-//    b. Use optional binding (`if let`) to check if `optionalAge` has a value.
-//       If it does, print "Age is [value]". If not, print "Age is not specified."
-//    c. Assign a value (e.g., 25) to `optionalAge`.
-//    d. Use forced unwrapping (`!`) to print the value of `optionalAge`. (Ensure it has a value before doing this for the sake of the exercise, but acknowledge the risk).
-//    e. Declare another optional integer `anotherOptionalAge` and initialize it with a value.
-//    f. Use the nil-coalescing operator (`??`) to provide a default value of 0 if `anotherOptionalAge` is `nil`, and print the result.
-//       Then set `anotherOptionalAge` to `nil` and print the result again using nil-coalescing.
+// 4. 옵셔널:
+//    a. 옵셔널 정수 `optionalAge`를 선언하고 초기화하지 마세요.
+//    b. 옵셔널 바인딩 (`if let`)을 사용하여 `optionalAge`에 값이 있는지 확인하세요.
+//       값이 있으면 "나이: [값]"을 출력하고, 없으면 "나이가 지정되지 않았습니다."를 출력하세요.
+//    c. `optionalAge`에 값(예: 25)을 할당하세요.
+//    d. 강제 언래핑 (`!`)을 사용하여 `optionalAge`의 값을 출력하세요. (연습을 위해 이 작업을 수행하기 전에 값이 있는지 확인하되 위험성을 인지하세요).
+//    e. 다른 옵셔널 정수 `anotherOptionalAge`를 선언하고 값으로 초기화하세요.
+//    f. Nil-병합 연산자 (`??`)를 사용하여 `anotherOptionalAge`가 `nil`인 경우 기본값 0을 제공하고 결과를 출력하세요.
+//       그런 다음 `anotherOptionalAge`를 `nil`로 설정하고 nil-병합 연산자를 사용하여 결과를 다시 출력하세요.
 
-// 5. Optional Chaining:
-//    Define a simple struct `User` with an optional property `address` of type `Address?`.
-//    Define another struct `Address` with an optional property `streetName` of type `String?`.
-//    a. Create a `User` instance.
-//    b. Try to print the `streetName` using optional chaining. If it's `nil` at any point, it should not crash.
-//       Print a message like "Street name: [name]" or "Street name not available."
-//    c. Create another `User` instance, this time also creating an `Address` instance for it, but leave `streetName` as `nil`. Print the street name.
-//    d. Create a third `User` instance, providing an `Address` and a `streetName`. Print the street name.
+// 5. 옵셔널 체이닝:
+//    `Address?` 타입의 옵셔널 프로퍼티 `address`를 가진 간단한 구조체 `User`를 정의하세요.
+//    `String?` 타입의 옵셔널 프로퍼티 `streetName`을 가진 다른 구조체 `Address`를 정의하세요.
+//    a. `User` 인스턴스를 만드세요.
+//    b. 옵셔널 체이닝을 사용하여 `streetName`을 출력해보세요. 어느 시점에서든 `nil`이면 충돌해서는 안 됩니다.
+//       "도로명: [이름]" 또는 "도로명을 사용할 수 없습니다."와 같은 메시지를 출력하세요.
+//    c. 다른 `User` 인스턴스를 만들고, 이번에는 `Address` 인스턴스도 만들되 `streetName`은 `nil`로 두세요. 도로명을 출력하세요.
+//    d. 세 번째 `User` 인스턴스를 만들고, `Address`와 `streetName`을 제공하세요. 도로명을 출력하세요.
 
 ```

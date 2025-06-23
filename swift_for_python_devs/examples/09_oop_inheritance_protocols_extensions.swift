@@ -1,129 +1,129 @@
-// Swift for Python Developers - Example 09: OOP (Inheritance, Protocols, Extensions)
+// 파이썬 개발자를 위한 Swift - 예제 09: OOP (상속, 프로토콜, 익스텐션)
 
-// --- Inheritance ---
-// A class can inherit methods, properties, and other characteristics from another class (superclass).
-// The inheriting class is the subclass. Structs do not support inheritance.
-// Python: class Subclass(Superclass):
+// --- 상속 ---
+// 클래스는 다른 클래스(슈퍼클래스)로부터 메서드, 프로퍼티 및 기타 특성을 상속받을 수 있습니다.
+// 상속받는 클래스는 서브클래스입니다. 구조체는 상속을 지원하지 않습니다.
+// 파이썬: class Subclass(Superclass):
 
-print("--- Inheritance ---")
+print("--- 상속 ---") // 문자열 리터럴 번역
 class Vehicle {
     var currentSpeed = 0.0
-    var description: String { // Read-only computed property
-        return "traveling at \(currentSpeed) miles per hour"
+    var description: String { // 읽기 전용 계산 프로퍼티
+        return "시속 \(currentSpeed)마일로 이동 중" // 문자열 리터럴 번역
     }
 
     func makeNoise() {
-        // Do nothing - an arbitrary vehicle doesn't necessarily make a noise
-        print("Vehicle: Generic noise (superclass)")
+        // 아무것도 하지 않음 - 임의의 차량이 반드시 소음을 내는 것은 아닙니다.
+        print("차량: 일반 소음 (슈퍼클래스)") // 문자열 리터럴 번역
     }
 
     init() {
-        print("Vehicle (superclass) initialized.")
+        print("차량 (슈퍼클래스) 초기화됨.") // 문자열 리터럴 번역
     }
 
-    // Final methods/properties/subscripts cannot be overridden. `final class` cannot be subclassed.
+    // final 메서드/프로퍼티/서브스크립트는 재정의할 수 없습니다. `final class`는 서브클래싱할 수 없습니다.
     final func reportSpeed() {
-        print("Current speed reported: \(currentSpeed) mph")
+        print("현재 속도 보고됨: \(currentSpeed) mph") // 문자열 리터럴 번역
     }
 }
 
-class Bicycle: Vehicle { // Bicycle inherits from Vehicle
-    var hasBasket = false // New stored property specific to Bicycle
+class Bicycle: Vehicle { // Bicycle이 Vehicle을 상속합니다.
+    var hasBasket = false // Bicycle에 특정한 새 저장 프로퍼티
 
-    // Subclasses do not inherit superclass initializers by default (with some exceptions).
-    // They must provide their own or rely on inherited ones if safe.
-    // If a subclass doesn't define any designated initializers, it automatically inherits
-    // all of its superclass designated initializers if certain conditions are met.
-    // (Basically, if all new properties have defaults). Here, hasBasket has no default.
+    // 서브클래스는 기본적으로 슈퍼클래스 초기화 구문을 상속하지 않습니다 (몇 가지 예외 제외).
+    // 자체적으로 제공하거나 안전한 경우 상속된 것에 의존해야 합니다.
+    // 서브클래스가 지정된 초기화 구문을 정의하지 않으면 특정 조건이 충족될 경우
+    // 모든 슈퍼클래스 지정 초기화 구문을 자동으로 상속합니다.
+    // (기본적으로 모든 새 프로퍼티에 기본값이 있는 경우). 여기서는 hasBasket에 기본값이 없습니다.
 
-    override init() { // Must override if superclass has a matching init we want to use/change
-        // Initialize subclass properties first (if any that need it here)
-        super.init() // Call superclass initializer
-        print("Bicycle (subclass) initialized.")
+    override init() { // 슈퍼클래스에 사용/변경하려는 일치하는 init이 있으면 재정의해야 합니다.
+        // 서브클래스 프로퍼티 먼저 초기화 (여기서 필요한 경우)
+        super.init() // 슈퍼클래스 초기화 구문 호출
+        print("자전거 (서브클래스) 초기화됨.") // 문자열 리터럴 번역
     }
 
     init(hasBasket: Bool) {
         self.hasBasket = hasBasket
-        super.init() // Always call super.init() from a designated initializer (if superclass has one)
-        print("Bicycle (subclass) with basket option initialized.")
+        super.init() // 지정된 초기화 구문에서 항상 super.init()을 호출합니다 (슈퍼클래스에 있는 경우).
+        print("자전거 (서브클래스) 바구니 옵션으로 초기화됨.") // 문자열 리터럴 번역
     }
 
 
-    // Overriding a method (must use `override` keyword)
+    // 메서드 재정의 (`override` 키워드 사용 필수)
     override func makeNoise() {
-        print("Bicycle: Ring ring!")
+        print("자전거: 따르릉 따르릉!") // 문자열 리터럴 번역
     }
 
-    // Cannot override a final method from superclass
-    // override func reportSpeed() { ... } // Error: Instance method overrides a 'final' instance method
+    // 슈퍼클래스의 final 메서드는 재정의할 수 없습니다.
+    // override func reportSpeed() { ... } // 오류: 인스턴스 메서드가 'final' 인스턴스 메서드를 재정의합니다.
 }
 
 let someVehicle = Vehicle()
-print("Some Vehicle: \(someVehicle.description)")
+print("일부 차량: \(someVehicle.description)") // 문자열 리터럴 번역
 someVehicle.makeNoise()
 
 let myBicycle = Bicycle(hasBasket: true)
 myBicycle.currentSpeed = 15.0
-print("My Bicycle: \(myBicycle.description)") // Accesses inherited `description`
-print("My Bicycle has basket: \(myBicycle.hasBasket)")
-myBicycle.makeNoise() // Calls overridden `makeNoise`
-myBicycle.reportSpeed() // Calls final method from superclass
+print("내 자전거: \(myBicycle.description)") // 상속된 `description` 접근 (문자열 리터럴 번역)
+print("내 자전거에 바구니 있음: \(myBicycle.hasBasket)") // 문자열 리터럴 번역
+myBicycle.makeNoise() // 재정의된 `makeNoise` 호출
+myBicycle.reportSpeed() // 슈퍼클래스의 final 메서드 호출
 
-// Accessing Superclass Members (`super.`)
+// 슈퍼클래스 멤버 접근 (`super.`)
 class Tandem: Bicycle {
     var currentNumberOfPassengers = 0
 
-    override init() { // Overriding Bicycle's init()
-        super.init(hasBasket: true) // Call superclass (Bicycle) initializer
-        self.currentNumberOfPassengers = 1 // Default for a tandem
-        print("Tandem (subclass of Bicycle) initialized.")
+    override init() { // Bicycle의 init() 재정의
+        super.init(hasBasket: true) // 슈퍼클래스 (Bicycle) 초기화 구문 호출
+        self.currentNumberOfPassengers = 1 // 탠덤의 기본값
+        print("탠덤 (Bicycle의 서브클래스) 초기화됨.") // 문자열 리터럴 번역
     }
 
     init(passengers: Int, basket: Bool) {
         self.currentNumberOfPassengers = passengers
-        super.init(hasBasket: basket) // Call superclass (Bicycle) initializer
-        print("Tandem (subclass of Bicycle) with passengers/basket option initialized.")
+        super.init(hasBasket: basket) // 슈퍼클래스 (Bicycle) 초기화 구문 호출
+        print("탠덤 (Bicycle의 서브클래스) 승객/바구니 옵션으로 초기화됨.") // 문자열 리터럴 번역
     }
 
     override func makeNoise() {
-        super.makeNoise() // Call superclass (Bicycle's) makeNoise
-        print("Tandem: ...and a gentle whoosh.")
+        super.makeNoise() // 슈퍼클래스 (Bicycle의) makeNoise 호출
+        print("탠덤: ...그리고 부드러운 휙 소리.") // 문자열 리터럴 번역
     }
 
-    override var description: String { // Overriding a computed property
-        return super.description + ", with \(currentNumberOfPassengers) passenger(s)"
+    override var description: String { // 계산 프로퍼티 재정의
+        return super.description + ", \(currentNumberOfPassengers)명의 승객과 함께" // 문자열 리터럴 번역
     }
 }
 
 let myTandem = Tandem(passengers: 2, basket: false)
 myTandem.currentSpeed = 12.0
-print("My Tandem: \(myTandem.description)")
+print("내 탠덤: \(myTandem.description)") // 문자열 리터럴 번역
 myTandem.makeNoise()
 
 
-// --- Protocols (Like Interfaces or Abstract Base Classes in Python) ---
-// Define a blueprint of methods, properties, and other requirements.
-// Classes, structs, or enums can then *conform* to the protocol.
-// Python: from abc import ABC, abstractmethod
-print("\n--- Protocols ---")
+// --- 프로토콜 (파이썬의 인터페이스 또는 추상 기본 클래스와 유사) ---
+// 메서드, 프로퍼티 및 기타 요구 사항의 청사진을 정의합니다.
+// 그런 다음 클래스, 구조체 또는 열거형이 프로토콜을 *준수*할 수 있습니다.
+// 파이썬: from abc import ABC, abstractmethod
+print("\n--- 프로토콜 ---") // 문자열 리터럴 번역
 
-protocol Named { // Protocol names usually end in -able, -ible, or -ing, or describe the role.
-    var name: String { get } // A gettable property requirement
-    // For a settable property: { get set }
-    func identify() -> String // Method requirement
+protocol Named { // 프로토콜 이름은 일반적으로 -able, -ible 또는 -ing로 끝나거나 역할을 설명합니다.
+    var name: String { get } // 가져올 수 있는 프로퍼티 요구 사항
+    // 설정 가능한 프로퍼티의 경우: { get set }
+    func identify() -> String // 메서드 요구 사항
 }
 
 protocol Aged {
     var age: Int { get set }
 }
 
-// Conforming to a protocol
-struct Person: Named, Aged { // Can conform to multiple protocols
-    var name: String // Implementation of `name` property from Named
-    var age: Int     // Implementation of `age` property from Aged
+// 프로토콜 준수
+struct Person: Named, Aged { // 여러 프로토콜을 준수할 수 있습니다.
+    var name: String // Named의 `name` 프로퍼티 구현
+    var age: Int     // Aged의 `age` 프로퍼티 구현
 
-    func identify() -> String { // Implementation of `identify` method from Named
-        return "I am a person named \(name), age \(age)."
+    func identify() -> String { // Named의 `identify` 메서드 구현
+        return "저는 \(name)이고, 나이는 \(age)살입니다." // 문자열 리터럴 번역
     }
 
     init(name: String, age: Int) {
@@ -132,7 +132,7 @@ struct Person: Named, Aged { // Can conform to multiple protocols
     }
 }
 
-class Dog: Named { // Classes can also conform
+class Dog: Named { // 클래스도 준수할 수 있습니다.
     var name: String
     var breed: String
 
@@ -142,39 +142,39 @@ class Dog: Named { // Classes can also conform
     }
 
     func identify() -> String {
-        return "I am a \(breed) dog named \(name)."
+        return "저는 \(breed) 종의 \(name)입니다." // 문자열 리터럴 번역
     }
 }
 
-var john = Person(name: "John Doe", age: 30)
-let buddy = Dog(name: "Buddy", breed: "Golden Retriever")
+var john = Person(name: "홍길동", age: 30) // 문자열 리터럴 번역
+let buddy = Dog(name: "버디", breed: "골든 리트리버") // 문자열 리터럴 번역
 
 print(john.identify())
 print(buddy.identify())
 
-john.age += 1 // `age` is settable
+john.age += 1 // `age`는 설정 가능합니다.
 
-// Using protocol as a type (Polymorphism)
-var somethingNamed: Named // Can hold any instance that conforms to Named
+// 프로토콜을 타입으로 사용 (다형성)
+var somethingNamed: Named // Named를 준수하는 모든 인스턴스를 담을 수 있습니다.
 somethingNamed = john
-print("Something named (Person): \(somethingNamed.identify())")
-// print(somethingNamed.age) // Error: 'somethingNamed' is of type 'Named', which doesn't have 'age'
+print("이름 있는 것 (사람): \(somethingNamed.identify())") // 문자열 리터럴 번역
+// print(somethingNamed.age) // 오류: 'somethingNamed'는 'Named' 타입이며, 'age'가 없습니다.
 
 somethingNamed = buddy
-print("Something named (Dog): \(somethingNamed.identify())")
+print("이름 있는 것 (개): \(somethingNamed.identify())") // 문자열 리터럴 번역
 
-// Collections of protocol types
+// 프로토콜 타입의 컬렉션
 let identifiableThings: [Named] = [john, buddy]
 for thing in identifiableThings {
-    print("From collection: \(thing.identify())")
-    if let person = thing as? Person { // Type casting to check specific type
-        print("   (This one is a person, age: \(person.age))")
+    print("컬렉션에서: \(thing.identify())") // 문자열 리터럴 번역
+    if let person = thing as? Person { // 특정 타입을 확인하기 위한 타입 캐스팅
+        print("   (이것은 사람이며, 나이: \(person.age))") // 문자열 리터럴 번역
     }
 }
 
-// Protocol requirements can include type properties and type methods (static)
+// 프로토콜 요구 사항에는 타입 프로퍼티 및 타입 메서드(정적)가 포함될 수 있습니다.
 protocol Togglable {
-    mutating func toggle() // `mutating` for value types (structs, enums)
+    mutating func toggle() // 값 타입(구조체, 열거형)의 경우 `mutating`
     static var description: String { get }
 }
 
@@ -185,10 +185,10 @@ enum OnOffSwitch: Togglable {
         case .off: self = .on
         case .on:  self = .off
         }
-        print("Switch toggled to \(self).")
+        print("스위치가 \(self)(으)로 전환됨.") // 문자열 리터럴 번역
     }
     static var description: String {
-        return "A switch that can be toggled between on and off."
+        return "켜고 끌 수 있는 스위치입니다." // 문자열 리터럴 번역
     }
 }
 print(OnOffSwitch.description)
@@ -196,42 +196,42 @@ var lightSwitch = OnOffSwitch.off
 lightSwitch.toggle() // on
 lightSwitch.toggle() // off
 
-// Protocol Inheritance
-// A protocol can inherit from one or more other protocols.
+// 프로토콜 상속
+// 프로토콜은 하나 이상의 다른 프로토콜로부터 상속받을 수 있습니다.
 protocol PrettyTextRepresentable: CustomStringConvertible, CustomDebugStringConvertible {
     var prettyDescription: String { get }
 }
-// CustomStringConvertible requires `description: String`
-// CustomDebugStringConvertible requires `debugDescription: String`
+// CustomStringConvertible은 `description: String`을 요구합니다.
+// CustomDebugStringConvertible은 `debugDescription: String`을 요구합니다.
 
 struct GameObject: PrettyTextRepresentable {
     var id: Int
     var name: String
 
-    var description: String { // For CustomStringConvertible
-        return "GameObject ID: \(id)"
+    var description: String { // CustomStringConvertible용
+        return "게임 오브젝트 ID: \(id)" // 문자열 리터럴 번역
     }
-    var debugDescription: String { // For CustomDebugStringConvertible
+    var debugDescription: String { // CustomDebugStringConvertible용
         return "GameObject(id: \(id), name: \"\(name)\")"
     }
-    var prettyDescription: String { // For PrettyTextRepresentable
+    var prettyDescription: String { // PrettyTextRepresentable용
         return "✨ \(name) (ID: \(id)) ✨"
     }
 }
-let playerObject = GameObject(id: 1, name: "Hero")
-print(playerObject) // Uses `description` via CustomStringConvertible
-print("Debug: \(String(reflecting: playerObject))") // Uses `debugDescription`
+let playerObject = GameObject(id: 1, name: "영웅") // 문자열 리터럴 번역
+print(playerObject) // CustomStringConvertible을 통해 `description` 사용
+print("디버그: \(String(reflecting: playerObject))") // `debugDescription` 사용 (문자열 리터럴 번역)
 print(playerObject.prettyDescription)
 
 
-// --- Extensions ---
-// Add new functionality to an existing class, structure, enumeration, or protocol type.
-// This includes adding computed properties, methods, initializers, subscripts,
-// and conforming to protocols *after* the original type definition.
-// Similar to Python's monkey-patching but more structured and type-safe.
-print("\n--- Extensions ---")
+// --- 익스텐션 ---
+// 기존 클래스, 구조체, 열거형 또는 프로토콜 타입에 새로운 기능을 추가합니다.
+// 여기에는 계산 프로퍼티, 메서드, 초기화 구문, 서브스크립트 추가 및
+// 원래 타입 정의 *후에* 프로토콜 준수가 포함됩니다.
+// 파이썬의 몽키 패칭과 유사하지만 더 구조적이고 타입 안전합니다.
+print("\n--- 익스텐션 ---") // 문자열 리터럴 번역
 
-// Extend built-in Double type
+// 내장 Double 타입 확장
 extension Double {
     var km: Double { return self * 1_000.0 }
     var m: Double { return self }
@@ -243,46 +243,46 @@ extension Double {
     }
 }
 let oneMeter = 1.0
-print("One meter in cm: \(oneMeter.cm)") // 100.0
+print("1미터는 cm로: \(oneMeter.cm)") // 100.0 (문자열 리터럴 번역)
 let distanceKm = 2.5.km
-print("2.5 km is \(distanceKm) meters.") // 2500.0
-print("5.0 squared is \(5.0.squared())") // 25.0
+print("2.5km는 \(distanceKm)미터입니다.") // 2500.0 (문자열 리터럴 번역)
+print("5.0의 제곱은 \(5.0.squared())입니다.") // 25.0 (문자열 리터럴 번역)
 
-// Conforming to a protocol via an extension
+// 익스텐션을 통한 프로토콜 준수
 protocol TextRepresentable {
     var textualDescription: String { get }
 }
 
-struct GameScore { // Original struct definition
+struct GameScore { // 원본 구조체 정의
     var points: Int
     var level: Int
 }
-// Later, or in another file, extend GameScore to conform to TextRepresentable
+// 나중에 또는 다른 파일에서 GameScore를 확장하여 TextRepresentable을 준수하도록 합니다.
 extension GameScore: TextRepresentable {
     var textualDescription: String {
-        return "Score: \(points) at Level \(level)"
+        return "점수: \(points) 레벨: \(level)" // 문자열 리터럴 번역
     }
 }
 let currentScore = GameScore(points: 1500, level: 3)
-print(currentScore.textualDescription) // "Score: 1500 at Level 3"
+print(currentScore.textualDescription) // "점수: 1500 레벨: 3"
 
-// Adding new initializers with extensions
-// (Useful for structs to keep their automatic memberwise initializer and add custom ones)
+// 익스텐션으로 새 초기화 구문 추가
+// (구조체가 자동 멤버별 초기화 구문을 유지하고 사용자 정의 구문을 추가하는 데 유용)
 struct Size {
     var width = 0.0, height = 0.0
 }
 extension Size {
-    init(squareSide: Double) { // New initializer
-        self.init(width: squareSide, height: squareSide) // Calls original memberwise/default init
-        print("Size initialized as square via extension.")
+    init(squareSide: Double) { // 새 초기화 구문
+        self.init(width: squareSide, height: squareSide) // 원본 멤버별/기본 init 호출
+        print("크기가 익스텐션을 통해 정사각형으로 초기화됨.") // 문자열 리터럴 번역
     }
 }
-let defaultSize = Size() // Still works (width: 0, height: 0)
-let customSize = Size(width: 10, height: 20) // Memberwise still works
-let squareSize = Size(squareSide: 5.0) // New initializer from extension
-print("Square size: width=\(squareSize.width), height=\(squareSize.height)")
+let defaultSize = Size() // 여전히 작동 (width: 0, height: 0)
+let customSize = Size(width: 10, height: 20) // 멤버별 초기화 구문 여전히 작동
+let squareSize = Size(squareSide: 5.0) // 익스텐션의 새 초기화 구문
+print("정사각형 크기: 너비=\(squareSize.width), 높이=\(squareSize.height)") // 문자열 리터럴 번역
 
-// Adding methods with extensions
+// 익스텐션으로 메서드 추가
 extension Int {
     func repetitions(task: () -> Void) {
         for _ in 0..<self {
@@ -294,20 +294,21 @@ extension Int {
     }
 }
 3.repetitions {
-    print("Hello from Int extension!")
+    print("Int 익스텐션에서 안녕하세요!") // 문자열 리터럴 번역
 }
-print("Is 4 even? \(4.isEven)") // true
-print("Is 7 even? \(7.isEven)") // false
+print("4는 짝수인가? \(4.isEven)") // true (문자열 리터럴 번역)
+print("7은 짝수인가? \(7.isEven)") // false (문자열 리터럴 번역)
 
-// Nested Types within an Extension
+// 익스텐션 내 중첩 타입
 extension Character {
-    enum Kind { // Define a nested enum Kind inside Character via extension
-        case vowel, consonant, other
+    enum Kind { // 익스텐션을 통해 Character 내에 중첩 열거형 Kind 정의
+        case vowel, consonant, other // 모음, 자음, 기타
     }
-    var kind: Kind { // Computed property using the nested enum
+    var kind: Kind { // 중첩 열거형을 사용하는 계산 프로퍼티
         switch String(self).lowercased() {
-        case "a", "e", "i", "o", "u":
+        case "a", "e", "i", "o", "u", "ㅏ", "ㅐ", "ㅑ", "ㅓ", "ㅔ", "ㅕ", "ㅗ", "ㅛ", "ㅜ", "ㅠ", "ㅡ", "ㅣ": // 한국어 모음 추가
             return .vowel
+        // 자음 케이스는 단순화를 위해 영어 알파벳만 유지. 필요시 한국어 자음 추가 가능.
         case "b", "c", "d", "f", "g", "h", "j", "k", "l", "m",
              "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z":
             return .consonant
@@ -319,7 +320,9 @@ extension Character {
 let charA: Character = "a"
 let charB: Character = "B"
 let charNum: Character = "7"
-print("'\(charA)' is a \(charA.kind)") // vowel
-print("'\(charB)' is a \(charB.kind)") // consonant
-print("'\(charNum)' is a \(charNum.kind)") // other
+let charKorVowel: Character = "ㅏ"
+print("'\(charA)'는 \(charA.kind)입니다.") // vowel (문자열 리터럴 번역)
+print("'\(charB)'는 \(charB.kind)입니다.") // consonant (문자열 리터럴 번역)
+print("'\(charNum)'는 \(charNum.kind)입니다.") // other (문자열 리터럴 번역)
+print("'\(charKorVowel)'는 \(charKorVowel.kind)입니다.") // vowel (문자열 리터럴 번역)
 ```
